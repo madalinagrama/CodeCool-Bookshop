@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategory extends BaseModel {
-    private String department;
-    private List<Product> products;
+    private transient String department;
+    private transient List<Product> products;
 
     public ProductCategory(String name, String department, String description) {
         super(name);
