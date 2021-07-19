@@ -60,3 +60,21 @@
 {
     margin: 0 0 11px;
 }
+
+body {
+    background: #eecda3;
+    background: -webkit-linear-gradient(to right, #eecda3, #ef629f);
+    background: linear-gradient(to right, #eecda3, #ef629f);
+    min-height: 100vh;
+}
+
+.jumbotron {
+    background: #eecda3;
+    background: -webkit-linear-gradient(to right, #eecda3, #ef629f);
+    background: linear-gradient(to right, #eecda3, #ef629f);
+    font-family: fantasy;
+}
+
+#title-jumbotron {
+    font-size: 5rem;
+}

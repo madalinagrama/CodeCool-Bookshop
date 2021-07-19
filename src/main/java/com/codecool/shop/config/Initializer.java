@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class Initializer implements ServletContextListener {
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
@@ -42,6 +41,7 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(parents);
 
         // setting up products and printing it
+
         productDataStore.add(new Product("The Very Hungry Caterpillar", 5.5f, "USD",
                 "The all-time classic picture book, from generation to generation, sold somewhere in the world every 30 seconds!",
                 kids, hachette));
@@ -53,8 +53,6 @@ public class Initializer implements ServletContextListener {
                 kids, penguin));
         productDataStore.add(new Product("I Love You to the Moon and Back", 3.5f, "USD",
                 "Show a child just how strong your love is every minute of the day! ", kids, harper));
-        productDataStore.add(
-                new Product("I Love You to the Moon and Back", 3.5f, "USD", "Show  ! ", kids, harper));
         productDataStore.add(new Product("Go the F**k to Sleep ", 6.99f, "USD",
                 "A Reader's Digest \"25 Funniest Books of All Time\"", kids, harper));
         productDataStore.add(new Product(
@@ -70,9 +68,7 @@ public class Initializer implements ServletContextListener {
                 "The pioneering experts behind The Whole-Brain Child and The Yes Brain tackle the ultimate parenting challenge: discipline.",
                 parents, harper));
         productDataStore.add(new Product("Positive Behavior Activities for Kids", 12.66f, "USD",
-                "Fun activities that encourage positive behavior in kids ages 4 to 8", kids, hachette));
-        productDataStore.add(new Product("The 5 Love Languages", 8.58f, "USD",
-                "A New York Times bestseller for 10 years running.", parents, penguin));
+                "Fun activities that encourage positive behavior in kids ages 4 to 8", parents, hachette));
         productDataStore.add(new Product("Raising Good Humans", 6.99f, "USD",
                 "A wise and fresh approach to mindful parenting.", parents, harper));
         productDataStore.add(new Product("How to Be a Happier Parent", 18, "USD",
