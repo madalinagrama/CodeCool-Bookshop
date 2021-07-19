@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class Initializer implements ServletContextListener {
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
@@ -42,6 +41,7 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(parents);
 
         // setting up products and printing it
+
         productDataStore.add(new Product("The Very Hungry Caterpillar", 5.5f, "USD",
                 "The all-time classic picture book, from generation to generation, sold somewhere in the world every 30 seconds!",
                 kids, hachette));
