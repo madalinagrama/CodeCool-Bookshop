@@ -40,7 +40,8 @@ public class CartController extends HttpServlet {
 
 //        Cart cart = cartDaoDataStore.find(1); // TODO get the actual cart ID
 
-        int productId = Integer.parseInt(req.getParameter("productId"));
+        String product = req.getParameter("productId");
+        int productId = (product != null) ? Integer.parseInt(product) : 1;
         Cart cart = cartDaoDataStore.find(1); // TODO get the actual cart ID
 
         if (lineItemDaoDataStore.find(productDataStore.find(productId).getId()) == null) {
@@ -76,7 +77,7 @@ public class CartController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        engine.process("product/index.html", context, resp.getWriter());
+        engine.process("product/cart.html", context, resp.getWriter());
     }
 
 }
