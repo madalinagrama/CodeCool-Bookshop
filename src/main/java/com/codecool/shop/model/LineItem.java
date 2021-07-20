@@ -16,12 +16,12 @@ public class LineItem implements Serializable {
     public LineItem() {
     }
 
-    public LineItem(int lineNumber, Product product) {
+    public LineItem(int lineNumber, Product cartItem) {
         this.lineNumber = lineNumber;
         this.quantity = 1;
-        this.itemId = itemId;
-        this.unitPrice = unitPrice;
-        this.product = product;
+        this.itemId = cartItem.getId();
+        this.unitPrice = cartItem.getDefaultPrice();
+        this.product = cartItem;
     }
 
     public int getOrderId() {
@@ -70,6 +70,7 @@ public class LineItem implements Serializable {
 
     public void setItem(Product product) {
         this.product = product;
+        calculateTotal();
     }
 
     public int getQuantity() {
@@ -78,7 +79,15 @@ public class LineItem implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        calculateTotal();
     }
 
+    private void calculateTotal() {
+        if (product != null) {
+            total = product.getDefaultPrice() * quantity;
+        } else {
+            total = Float.parseFloat(null);
+        }
+    }
 
 }

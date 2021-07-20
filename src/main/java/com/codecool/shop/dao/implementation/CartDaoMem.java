@@ -8,16 +8,16 @@ import java.util.List;
 
 public class CartDaoMem implements CartDao {
     private List<Cart> data = new ArrayList<>();
-    private static CartDaoMem INSTANCE = null;
+    private static CartDaoMem instance = null;
 
     private CartDaoMem() {
     }
 
     public static CartDaoMem getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new CartDaoMem();
+        if (instance == null) {
+            instance = new CartDaoMem();
         }
-        return INSTANCE;
+        return instance;
     }
 
     @Override
@@ -28,7 +28,6 @@ public class CartDaoMem implements CartDao {
     @Override
     public Cart find(int id) {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
-
     }
 
     @Override

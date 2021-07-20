@@ -16,12 +16,13 @@ public class Cart {
     }
 
     public Cart(List<LineItem> products) {
-        this.id = count.incrementAndGet();
+//        this.id = count.incrementAndGet();
+        this.id = 1;
         this.products = products;
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public List<LineItem> getProducts() {
@@ -43,5 +44,16 @@ public class Cart {
         products.add(lineItem);
     }
 
+    public int getQuantity(){
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void increaseQuantity(){
+        quantity +=1;
+    }
 
 }
