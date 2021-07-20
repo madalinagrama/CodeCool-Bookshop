@@ -78,3 +78,9 @@ body {
 #title-jumbotron {
     font-size: 5rem;
 }
+
+.container img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+}
