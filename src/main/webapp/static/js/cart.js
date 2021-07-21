@@ -1,5 +1,5 @@
-let button = document.querySelectorAll(".btn-success");
-let cart = document.querySelector(".bi-cart");
+// let button = document.querySelectorAll(".btn-success");
+// let cart = document.querySelector(".bi-cart");
 
 // async function loadData(e){
 //     e.preventDefault();
@@ -20,5 +20,5 @@ let cart = document.querySelector(".bi-cart");
 //     btn.addEventListener("click",loadData)
 // });
 
-const cartPage = (() => { open( "/cart", "_self"); });
-cart.addEventListener("click",cartPage);
+// const cartPage = (() => { open( "/cart", "_self"); });
+// cart.addEventListener("click",cartPage);

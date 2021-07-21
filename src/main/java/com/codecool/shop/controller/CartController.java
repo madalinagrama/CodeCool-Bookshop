@@ -16,6 +16,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,8 @@ public class CartController extends HttpServlet {
         resp.setContentType("application/json");
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
+
+        resp.setContentType("text/html");
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         CartDao cartDaoDataStore = CartDaoMem.getInstance();
@@ -56,10 +59,10 @@ public class CartController extends HttpServlet {
 //        Cart cart = new Cart(1);
 
 
-        System.out.println("cart.hashcode() " + cart.hashCode());
-        System.out.println("CartDaoMem.getInstance() " + CartDaoMem.getInstance());
-        System.out.println("lineItemDaoDataStore " + lineItemDaoDataStore);
-        System.out.println("cartDaoDataStore.find(1) " + cartDaoDataStore.find(1));
+//        System.out.println("cart.hashcode() " + cart.hashCode());
+//        System.out.println("CartDaoMem.getInstance() " + CartDaoMem.getInstance());
+//        System.out.println("lineItemDaoDataStore " + lineItemDaoDataStore);
+//        System.out.println("cartDaoDataStore.find(1) " + cartDaoDataStore.find(1));
 
         if (lineItemDaoDataStore.find(productDataStore.find(productId).getId()) == null) {
 
