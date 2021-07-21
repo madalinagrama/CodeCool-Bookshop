@@ -84,3 +84,9 @@ body {
     height: auto;
     aspect-ratio: 1/1;
 }
+
+
+.h1 {
+    font-size: 3.25rem;
+    font-weight: 300;
+}

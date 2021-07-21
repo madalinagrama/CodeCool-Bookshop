@@ -1,14 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.LineItemDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
-import com.codecool.shop.dao.implementation.LineItemDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.LineItem;
+import com.codecool.shop.service.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.simple.JSONObject;
@@ -31,7 +28,7 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
+//        resp.setContentType("application/json");
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
@@ -40,6 +37,8 @@ public class CartController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         CartDao cartDaoDataStore = CartDaoMem.getInstance();
         LineItemDao lineItemDaoDataStore = LineItemDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         Cart cart;
 
 
@@ -59,11 +58,6 @@ public class CartController extends HttpServlet {
 //        Cart cart = new Cart(1);
 
 
-//        System.out.println("cart.hashcode() " + cart.hashCode());
-//        System.out.println("CartDaoMem.getInstance() " + CartDaoMem.getInstance());
-//        System.out.println("lineItemDaoDataStore " + lineItemDaoDataStore);
-//        System.out.println("cartDaoDataStore.find(1) " + cartDaoDataStore.find(1));
-
         if (lineItemDaoDataStore.find(productDataStore.find(productId).getId()) == null) {
 
             lineItemDaoDataStore.add(new LineItem(productDataStore.find(productId).getId(), productDataStore.find(productId)));
@@ -81,8 +75,8 @@ public class CartController extends HttpServlet {
 
 //        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //        String json = gson.toJson(cart.getProducts());
-
-
+//
+//
 //        JSONObject obj = new JSONObject();
 //        obj.put("id", cart.getId());
 //        obj.put("total", cart.getTotal());
@@ -101,6 +95,8 @@ public class CartController extends HttpServlet {
 
         context.setVariable("cart", cart);
         context.setVariable("lineItems", lineItemDaoDataStore.getAll());
+        context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("suppliers", supplierDataStore.getAll());
 
         engine.process("cart.html", context, resp.getWriter());
 
