@@ -15,9 +15,9 @@ public class Cart {
         this.id = id;
     }
 
-    public Cart(List<LineItem> products) {
+    public Cart(List<LineItem> products, int id) {
 //        this.id = count.incrementAndGet();
-        this.id = 1;
+        this.id = id;
         this.products = products;
     }
 
