@@ -1,7 +1,29 @@
-let button = document.querySelectorAll(".btn-success");
-let cart = document.querySelector(".bi-cart");
+// let button = document.querySelectorAll(".btn-success");
+// let cart = document.querySelector(".bi-cart");
 
-console.log("ceva");
+async function updateQuantity() {
+    let prodQuantity = this.value;
+    let productId = this.getAttribute("data-prod-id");
+
+    let dataToBePosted = new FormData();
+    dataToBePosted.append("quantity", prodQuantity);
+    dataToBePosted.append("productId", productId);
+
+    await fetch("http://localhost:8888/cart", {
+        method: "POST",
+        body: dataToBePosted
+    })
+    window.location.reload();
+}
+
+let quantityInputs = document.getElementsByClassName("form-control quantity-input");
+for (let quantityInput of quantityInputs) {
+    quantityInput.addEventListener("click", updateQuantity);
+}
+
+
+
+// console.log("ceva");
 //
 // async function loadData(e){
 //     e.preventDefault();
@@ -26,6 +48,6 @@ console.log("ceva");
 // button.forEach(btn => {
 //     btn.addEventListener("click",loadData)
 // });
-
-const cartPage = (() => { open( "/cart", "_self"); });
-cart.addEventListener("click",cartPage);
+//
+// const cartPage = (() => { open( "/cart", "_self"); });
+// cart.addEventListener("click",cartPage);

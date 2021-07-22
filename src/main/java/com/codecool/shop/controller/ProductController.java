@@ -102,7 +102,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(productId);
 
         Product product = productDataStore.find(id);
-        cart.addProduct(product);
+        cart.addProduct(product, product.getDefaultPrice());
         session.setAttribute("cart", cart);
 
         System.out.println("product" + product);
