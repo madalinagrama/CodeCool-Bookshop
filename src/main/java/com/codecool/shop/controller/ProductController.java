@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,17 +29,35 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+    TemplateEngine engine;
+    WebContext context;
+    Cart cart;
+    HttpSession session;
+
+    private void setData(HttpServletRequest req, HttpServletResponse resp){
+
+        engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        context = new WebContext(req, resp, req.getServletContext());
+
+        session = req.getSession();
+        cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setData(req, resp);
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 
-
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
+//        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+//        WebContext context = new WebContext(req, resp, req.getServletContext());
 
         String category = req.getParameter("category");
         int categoryId = (category != null) ? Integer.parseInt(category) : 1;
@@ -59,5 +78,28 @@ public class ProductController extends HttpServlet {
         engine.process("product/index.html", context, resp.getWriter());
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+//        resp.setContentType("text/html");
 
+        setData(req, resp);
+        System.out.println("check");
+
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+
+        String productId = req.getParameter("productId");
+        int id = Integer.parseInt(productId);
+
+        Product product = productDataStore.find(id);
+        cart.addProduct(product);
+        session.setAttribute("cart", cart);
+
+        System.out.println("product" + product);
+        System.out.println("cart" + cart);
+
+        engine.process("product/index.html", context, resp.getWriter());
+
+    }
 }

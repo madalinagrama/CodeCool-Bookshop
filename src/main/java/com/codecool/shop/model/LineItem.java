@@ -24,6 +24,11 @@ public class LineItem implements Serializable {
         this.product = cartItem;
     }
 
+    public LineItem(Product product) {
+        this.product = product;
+        this.quantity = 1;
+    }
+
     public int getOrderId() {
         return orderId;
     }

@@ -21,6 +21,10 @@ public class Cart {
         this.products = products;
     }
 
+    public Cart() {
+        this.products = new ArrayList<>();
+    }
+
     public int getId() {
         return this.id;
     }
@@ -42,6 +46,23 @@ public class Cart {
 
     public void addToCart(LineItem lineItem){
         products.add(lineItem);
+    }
+
+    public void addProduct(Product product) {
+        boolean found = false;
+        for (LineItem item : products) {
+            //if found increase quantity
+            if (item.getProduct().getId() == product.getId()) {
+                item.setQuantity(item.getQuantity() + 1);
+                increaseQuantity();
+                found = true;
+            }
+        }
+        //if not found add new item
+        if (!found) {
+            products.add(new LineItem(product));
+            increaseQuantity();
+        }
     }
 
     public int getQuantity(){
