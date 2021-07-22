@@ -33,11 +33,20 @@ public class ProductController extends HttpServlet {
     WebContext context;
     Cart cart;
     HttpSession session;
+    ProductDao productDataStore;
+    ProductCategoryDao productCategoryDataStore;
+    SupplierDao supplierDataStore;
+    ProductService productService;
 
     private void setData(HttpServletRequest req, HttpServletResponse resp){
 
         engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         context = new WebContext(req, resp, req.getServletContext());
+
+        productDataStore = ProductDaoMem.getInstance();
+        productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        supplierDataStore = SupplierDaoMem.getInstance();
+        productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 
         session = req.getSession();
         cart = (Cart) session.getAttribute("cart");
@@ -51,10 +60,9 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setData(req, resp);
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
+//        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+//        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+//        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 
 //        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
 //        WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -82,12 +90,13 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-//        resp.setContentType("text/html");
+        resp.setContentType("text/html");
 
         setData(req, resp);
         System.out.println("check");
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+//        ProductDao productDataStore = ProductDaoMem.getInstance();
+
 
         String productId = req.getParameter("productId");
         int id = Integer.parseInt(productId);
@@ -99,7 +108,10 @@ public class ProductController extends HttpServlet {
         System.out.println("product" + product);
         System.out.println("cart" + cart);
 
-        engine.process("product/index.html", context, resp.getWriter());
+//        engine.process("product/index.html", context, resp.getWriter());
+
+        doGet(req, resp);
+
 
     }
 }
