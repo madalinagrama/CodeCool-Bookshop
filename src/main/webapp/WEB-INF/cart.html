@@ -1,8 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <div class="px-4 px-lg-0">
     <!-- For demo purpose -->
     <div class="container text-white py-5 text-center">
         <h1 class="display-4">Bootstrap 4 shopping cart</h1>
         <p class="lead mb-0">Build a fully structred shopping cart page using Bootstrap 4. </p>
+        <div class="card">
+            <h4 class="card-title" th:text="${lineItems}">lineItems</h4>
+        </div>
+
         <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white font-italic">
             <u>Bootstrapious</u></a>
         </p>
@@ -118,3 +124,4 @@
         </div>
     </div>
 </div>
+</html>

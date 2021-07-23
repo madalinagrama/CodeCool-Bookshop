@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 
 
-
 </head>
 
 <body>
@@ -76,12 +75,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right ml-auto">
-                <li class="cart"><a href="#">
+                <li class="cart"><a href="/cart">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                          class="bi bi-cart" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                     </svg>
-                    <p class="itemCount">0</p></a></li>
+                    <p class="itemCount" th:text="${session.cart} ? ${session.cart.getNumberOfProducts()} : '0'" ></p></a></li>
             </ul>
         </div>
     </div>
@@ -92,9 +91,9 @@
 </div>
 
 <div class="container">
-<!--    <div class="card">-->
-<!--        <strong th:text="${category.name}">Category Title</strong>-->
-<!--    </div>-->
+    <!--    <div class="card">-->
+    <!--        <strong th:text="${category.name}">Category Title</strong>-->
+    <!--    </div>-->
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
@@ -110,7 +109,13 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <form method="post" action="/">
+                            <input type="hidden" name="productId" th:value="${prod.id}">
+                            <button class="btn btn-success" type="submit">
+                                <!--  th:attr="data-id=${prod.id}" th:href="|/cart?productId=${prod.id}|"-->
+                                Add to cart
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -120,6 +125,6 @@
 </div>
 
 <div th:replace="footer.html :: copy"></div>
-
+<!--<script src='/static/js/cart.js'></script>-->
 </body>
 </html>
