@@ -105,8 +105,8 @@ public class ProductController extends HttpServlet {
         cart.addProduct(product, product.getDefaultPrice());
         session.setAttribute("cart", cart);
 
-        System.out.println("product" + product);
-        System.out.println("cart" + cart);
+//        System.out.println("product" + product);
+//        System.out.println("cart" + cart);
 
 //        engine.process("product/index.html", context, resp.getWriter());
 
