@@ -172,10 +172,10 @@ public class CartController extends HttpServlet {
             }
         }
 
-        session.setAttribute("cart", cart);
+//        session.setAttribute("cart", cart);
 
-        System.out.println("session - " + session.toString());
-        System.out.println("cart - " + cart.toString());
+//        System.out.println("session - " + session.toString());
+//        System.out.println("cart - " + cart.toString());
 
         doGet(req, resp);
     }
