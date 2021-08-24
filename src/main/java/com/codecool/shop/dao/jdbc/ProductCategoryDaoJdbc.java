@@ -15,6 +15,8 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         this.dataSource = dataSource;
     }
 
+    public ProductCategoryDaoJdbc() throws SQLException{
+    }
 
     @Override
     public void add(ProductCategory category) {
@@ -27,7 +29,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
-//            category.setId(resultSet.getInt(1));
+            category.setId(resultSet.getInt(1));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
