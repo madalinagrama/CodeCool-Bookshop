@@ -45,9 +45,9 @@ INSERT INTO supplier (name, description)
 VALUES ('Hachette',
         'Publishing authors who have a purpose, a story to tell, and an unusual talent for making readers care about it.');
 
-INSERT INTO product_category (name, description, department)
+INSERT INTO product_category (name, department, description)
 VALUES ('Kids books', 'Books', 'Spark the love for reading in the new generations!');
-INSERT INTO product_category (name, description, department)
+INSERT INTO product_category (name, department, description)
 VALUES ('Parenting books', 'Books', 'No one is born knowing this and everyone can learn!');
 
 INSERT INTO product (name, description, default_price, currency_string, supplier, product_category)
