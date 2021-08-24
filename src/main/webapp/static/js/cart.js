@@ -9,7 +9,7 @@ async function updateQuantity() {
     dataToBePosted.append("quantity", prodQuantity);
     dataToBePosted.append("productId", productId);
 
-    await fetch("http://localhost:8888/cart", {
+    await fetch("http://localhost:8880/cart", {
         method: "POST",
         body: dataToBePosted
     })
