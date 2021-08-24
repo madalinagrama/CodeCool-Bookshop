@@ -5,17 +5,30 @@ import java.util.List;
 
 public class ProductCategory extends BaseModel {
 
+    private int id;
+    private String description;
     private transient String department;
     private transient List<Product> products;
 
     public ProductCategory(String name, String department, String description) {
         super(name);
         this.department = department;
+        this.description = description;
         this.products = new ArrayList<>();
     }
 
     public String getDepartment() {
         return department;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     public void setDepartment(String department) {

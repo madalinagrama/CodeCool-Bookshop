@@ -1,2 +1,6 @@
-package com.codecool.shop.dao.jdbc;public class ProductDaoJdbc {
+package com.codecool.shop.dao.jdbc;
+
+public class ProductDaoJdbc {
+
+
 }
