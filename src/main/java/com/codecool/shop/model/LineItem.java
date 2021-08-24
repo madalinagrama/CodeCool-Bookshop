@@ -30,6 +30,10 @@ public class LineItem implements Serializable {
         this.unitPrice = price;
     }
 
+    public LineItem(int itemId) {
+        this.itemId = itemId;
+    }
+
     public int getOrderId() {
         return orderId;
     }
@@ -77,6 +81,10 @@ public class LineItem implements Serializable {
     public void setItem(Product product) {
         this.product = product;
         calculateTotal();
+    }
+
+    public String getCurrency() {
+        return "USD";
     }
 
     public int getQuantity() {

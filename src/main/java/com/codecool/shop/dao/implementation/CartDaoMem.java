@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.LineItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,14 @@ public class CartDaoMem implements CartDao {
         return instance;
     }
 
+//    @Override
+//    public void add(Cart cart) {
+//        data.add(cart);
+//    }
+
     @Override
-    public void add(Cart cart) {
-        data.add(cart);
+    public void add(Cart cart, LineItem lineItem) {
+
     }
 
     @Override

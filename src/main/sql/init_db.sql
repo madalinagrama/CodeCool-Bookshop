@@ -29,6 +29,25 @@ CREATE TABLE product
     product_category VARCHAR(255)        NOT NULL
 );
 
+CREATE TABLE cart
+(
+    id        SERIAL PRIMARY KEY NOT NULL,
+    line_item_id INTEGER            NOT NULL
+);
+
+CREATE TABLE line_item
+(
+    line_item_id SERIAL PRIMARY KEY NOT NULL,
+    order_id        INTEGER NOT NULL,
+    quantity  INTEGER NOT NULL,
+    item_id  INTEGER NOT NULL,
+    currency VARCHAR(255) NOT NULL,
+    unit_price DOUBLE PRECISION NOT NULL,
+    product DOUBLE PRECISION NOT NULL,
+    total VARCHAR(255) NOT NULL
+);
+
+
 -- ALTER TABLE product
 --     ADD CONSTRAINT fk_product_supplier_id FOREIGN KEY (supplier_id) REFERENCES supplier(id);
 --
@@ -66,7 +85,8 @@ INSERT INTO product (name, description, default_price, currency_string, supplier
 VALUES ('I Love You to the Moon and Back', 'Show a child just how strong your love is every minute of the day!', 3.5,
         'USD', 'Hachette', 'Kids books');
 INSERT INTO product (name, description, default_price, currency_string, supplier, product_category)
-VALUES ('Go the F**k to Sleep', 'A Reader''s Digest \"25 Funniest Books of All Time\"', 6.5, 'USD', 'Hachette', 'Kids books');
+VALUES ('Go the F**k to Sleep', 'A Reader''s Digest \"25 Funniest Books of All Time\"', 6.5, 'USD', 'Hachette',
+        'Kids books');
 INSERT INTO product (name, description, default_price, currency_string, supplier, product_category)
 VALUES ('The Montessori Baby: A Parents Guide to Nurturing Your Baby with Love',
         'The Montessori Baby shows how to raise your baby from birth to age one with love, respect, insight, and a surprising sense of calm.',
@@ -83,10 +103,12 @@ INSERT INTO product (name, description, default_price, currency_string, supplier
 VALUES ('Positive Behavior Activities for Kids', 'Fun activities that encourage positive behavior in kids ages 4 to 8',
         12.5, 'USD', 'PenguinBooks', 'Parenting books');
 INSERT INTO product (name, description, default_price, currency_string, supplier, product_category)
-VALUES ('Raising Good Humans', 'A wise and fresh approach to mindful parenting.', 6.5, 'USD', 'HarperCollins', 'Parenting books');
+VALUES ('Raising Good Humans', 'A wise and fresh approach to mindful parenting.', 6.5, 'USD', 'HarperCollins',
+        'Parenting books');
 INSERT INTO product (name, description, default_price, currency_string, supplier, product_category)
 VALUES ('How to Be a Happier Parent',
-        'An encouraging guide to helping parents find more happiness in their day-to-day family life.', 18, 'USD', 'Hachette',
+        'An encouraging guide to helping parents find more happiness in their day-to-day family life.', 18, 'USD',
+        'Hachette',
         'Parenting books');
 
 
