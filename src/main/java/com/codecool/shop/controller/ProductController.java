@@ -9,6 +9,8 @@ import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.jdbc.DatabaseManager;
+import com.codecool.shop.dao.jdbc.ProductDaoJdbc;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
@@ -25,7 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,20 +46,30 @@ public class ProductController extends HttpServlet {
     ProductService productService;
 
     private void setData(HttpServletRequest req, HttpServletResponse resp){
+        try {
+            DataSource dataSource = new DatabaseManager().setup();
+            if (DatabaseManager.class.equals("memory")) {
+                productDataStore = ProductDaoMem.getInstance();
+            } else {
+                productDataStore = new ProductDaoJdbc(dataSource);
+                engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+                context = new WebContext(req, resp, req.getServletContext());
 
-        engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        context = new WebContext(req, resp, req.getServletContext());
+//            productDataStore = ProductDaoMem.getInstance();
+                productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+                supplierDataStore = SupplierDaoMem.getInstance();
+                productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
 
-        productDataStore = ProductDaoMem.getInstance();
-        productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        supplierDataStore = SupplierDaoMem.getInstance();
-        productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
+                session = req.getSession();
+                cart = (Cart) session.getAttribute("cart");
+                if (cart == null) {
+                    cart = new Cart();
+                    session.setAttribute("cart", cart);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
 
-        session = req.getSession();
-        cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart);
         }
     }
 
