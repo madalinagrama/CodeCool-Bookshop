@@ -1,14 +1,10 @@
 package com.codecool.shop.dao.jdbc;
 
-import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.google.gson.Gson;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -68,17 +64,18 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public List<Product> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            ProductCategoryDaoJdbc productCategoryDaoJdbc = new ProductCategoryDaoJdbc();
+            CategoryDaoJdbc categoryDaoJdbc = new CategoryDaoJdbc();
             SupplierDaoJdbc supplierDaoJdbc = new SupplierDaoJdbc();
             String sql = "SELECT * FROM product";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<Product> result = new ArrayList<>();
             while (rs.next()) {
-                ProductCategory category = productCategoryDaoJdbc.find(rs.getInt(5));
+                ProductCategory category = categoryDaoJdbc.find(rs.getInt(5));
                 Supplier supplier = supplierDaoJdbc.find(6);
                 Product product = new Product(rs.getString(1), rs.getFloat(2), rs.getString(3), rs.getString(4), category, supplier);
                 result.add(product);
             }
+            System.out.println(result);
             return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);

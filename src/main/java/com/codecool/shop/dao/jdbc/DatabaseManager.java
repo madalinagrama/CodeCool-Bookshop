@@ -11,23 +11,26 @@ import java.sql.SQLException;
 public class DatabaseManager {
     private CartDao cartDao;
     private LineItemDao lineItemDao;
-    private ProductCategoryDao productCategoryDao;
+    private CategoryDao categoryDao;
     private ProductDao productDao;
     private SupplierDao supplierDao;
     private Dotenv dotenv;
+    private static Object dao;
+
+    public static Object getDao() {
+        return dao;
+    }
 
     public DataSource setup() throws SQLException {
         DataSource dataSource = connect();
-        lineItemDao = new LineItemJdbc(dataSource);
-//        TODO check if we need also lineItem as parameter
-        cartDao= new CartJdbc(dataSource);
-        productDao = new ProductDaoJdbc(dataSource);
-//        TODO check if we need also product as parameter
-        productCategoryDao = new ProductCategoryDaoJdbc(dataSource);
-//        TODO check if we need also product as parameter
-        supplierDao = new SupplierDaoJdbc(dataSource);
+//        lineItemDao = new LineItemJdbc(dataSource);
+//        cartDao= new CartJdbc(dataSource, lineItemDao);
+//        productDao = new ProductDaoJdbc(dataSource);
+//        categoryDao = new CategoryDaoJdbc(dataSource);
+//        supplierDao = new SupplierDaoJdbc(dataSource);
         return dataSource;
     }
+
 
     private DataSource connect() throws SQLException {
         dotenv = Dotenv.load();

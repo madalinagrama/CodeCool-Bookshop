@@ -12,13 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJdbc implements SupplierDao {
-    private DataSource dataSource;
+    DataSource dataSource = new DatabaseManager().setup();
+    private static SupplierDaoJdbc instance = null;
 
-    public SupplierDaoJdbc(DataSource dataSource) {
+    public SupplierDaoJdbc(DataSource dataSource) throws SQLException {
         this.dataSource = dataSource;
     }
 
-    public SupplierDaoJdbc() throws SQLException {
+    SupplierDaoJdbc() throws SQLException {
+    }
+
+    public static SupplierDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new SupplierDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
@@ -59,9 +67,10 @@ public class SupplierDaoJdbc implements SupplierDao {
                 return null;
             }
             while (rs.next()) {
-                Supplier supplier = find(rs.getInt(6));
-                result.add(supplier);
-
+                Supplier temp = new Supplier(rs.getString("name"), rs.getString("description"));
+                int id = rs.getInt("id");
+                temp.setId(id);
+                result.add(temp);
             }
             return result;
         } catch (SQLException e) {

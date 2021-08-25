@@ -27,6 +27,11 @@ public class ProductCategory extends BaseModel {
     }
 
     @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
     public String getDescription() {
         return description;
     }
