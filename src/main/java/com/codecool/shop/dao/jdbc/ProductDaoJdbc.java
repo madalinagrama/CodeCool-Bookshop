@@ -84,11 +84,43 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            CategoryDaoJdbc categoryDaoJdbc = new CategoryDaoJdbc();
+            String sql = "SELECT * FROM product WHERE supplier = ?";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<Product> result = new ArrayList<>();
+            while (rs.next()) {
+                ProductCategory productCategory = new CategoryDaoJdbc().find(rs.getInt("product_category"));
+                Product temp = new Product(rs.getString("name"), rs.getFloat("default_price"), rs.getString("currency_string"), rs.getString("description"), productCategory, supplier);
+                int id = rs.getInt("id");
+                temp.setId(id);
+                result.add(temp);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            SupplierDaoJdbc supplierDaoJdbc = new SupplierDaoJdbc();
+            String sql = "SELECT * FROM product WHERE product_category = ?";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<Product> result = new ArrayList<>();
+            while (rs.next()) {
+                Supplier supplier = new SupplierDaoJdbc().find(rs.getInt("supplier"));
+                Product temp = new Product(rs.getString("name"), rs.getFloat("default_price"), rs.getString("currency_string"), rs.getString("description"), productCategory, supplier);
+                int id = rs.getInt("id");
+                temp.setId(id);
+                result.add(temp);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }

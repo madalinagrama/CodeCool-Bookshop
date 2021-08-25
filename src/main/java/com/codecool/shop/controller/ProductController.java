@@ -98,20 +98,15 @@ public class ProductController extends HttpServlet {
         if (checkAll == null) {
             context.setVariable("products", productDataStore.getAll());
         } else {
-
-            if (supplier == null) {
+            if (category != null) {
                 context.setVariable("category", productService.getProductCategory(categoryId));
-                context.setVariable("products", productService.getProductsForCategory(categoryId));
+                context.setVariable("products", productService.getProductCategory(categoryId));
             } else {
                 context.setVariable("supplier", productService.getProductSupplier(supplierId));
-                context.setVariable("products", productService.getProductsForSupplier(supplierId));
+                context.setVariable("products", productService.getProductSupplier(supplierId));
             }
 
         }
-
-
-
-
         engine.process("product/index.html", context, resp.getWriter());
     }
 
