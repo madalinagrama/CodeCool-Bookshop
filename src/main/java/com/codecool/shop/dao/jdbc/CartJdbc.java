@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.jdbc;
 
 import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.LineItem;
 
@@ -10,10 +11,16 @@ import java.util.List;
 
 public class CartJdbc implements CartDao {
 
-    private DataSource dataSource;
+    DataSource dataSource = new DatabaseManager().setup();
+    private LineItemDao lineItemDao;
 
-    public CartJdbc(DataSource dataSource) {
+    public CartJdbc(DataSource dataSource) throws SQLException {
         this.dataSource = dataSource;
+    }
+
+    public CartJdbc(DataSource dataSource, LineItemDao lineItemDao) throws SQLException {
+        this.dataSource = dataSource;
+        this.lineItemDao = lineItemDao;
     }
 
     @Override

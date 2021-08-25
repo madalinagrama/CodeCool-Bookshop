@@ -4,17 +4,12 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Cart;
-import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.json.simple.JSONObject;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet(urlPatterns = {"/cart"})
 @MultipartConfig
@@ -33,7 +26,7 @@ public class CartController extends HttpServlet {
     TemplateEngine engine;
     WebContext context;
     ProductDao productDataStore;
-    ProductCategoryDao productCategoryDataStore;
+    CategoryDao productCategoryDataStore;
     SupplierDao supplierDataStore;
     ProductService productService;
     Cart cart;
@@ -46,7 +39,7 @@ public class CartController extends HttpServlet {
         context = new WebContext(req, resp, req.getServletContext());
 
         productDataStore = ProductDaoMem.getInstance();
-        productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        productCategoryDataStore = CategoryDaoMem.getInstance();
         supplierDataStore = SupplierDaoMem.getInstance();
         productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 

@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.jdbc;
 
-import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.CategoryDao;
+import com.codecool.shop.dao.implementation.CategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
@@ -8,14 +9,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoJdbc implements ProductCategoryDao {
-    private DataSource dataSource;
+public class CategoryDaoJdbc implements CategoryDao {
+    DataSource dataSource = new DatabaseManager().setup();
+    private static CategoryDaoJdbc instance = null;
 
-    public ProductCategoryDaoJdbc(DataSource dataSource) {
+    public CategoryDaoJdbc(DataSource dataSource) throws SQLException {
         this.dataSource = dataSource;
     }
 
-    public ProductCategoryDaoJdbc() throws SQLException{
+    CategoryDaoJdbc() throws SQLException{
+    }
+
+    public static CategoryDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new CategoryDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
@@ -55,14 +64,14 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void remove(int id) {
-        try (Connection conn = dataSource.getConnection()) {
-            String sql = "DELETE FROM product_category WHERE id = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        try (Connection conn = dataSource.getConnection()) {
+//            String sql = "DELETE FROM product_category WHERE id = ?";
+//            PreparedStatement statement = conn.prepareStatement(sql);
+//            statement.setInt(1, id);
+//            statement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
 
@@ -75,7 +84,10 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             List<ProductCategory> productCategories = new ArrayList<>();
 
             while(rs.next()) {
-                productCategories.add(new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3)));
+                ProductCategory temp = new ProductCategory(rs.getString("name"), rs.getString("department"), rs.getString("description"));
+                int id =  rs.getInt("id");
+                temp.setId(id);
+                productCategories.add(temp);
             }
             return productCategories;
         } catch (SQLException e) {

@@ -1,25 +1,25 @@
 package com.codecool.shop.dao.implementation;
 
 
-import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.CategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoMem implements ProductCategoryDao {
+public class CategoryDaoMem implements CategoryDao {
 
     private List<ProductCategory> data = new ArrayList<>();
-    private static ProductCategoryDaoMem instance = null;
+    private static CategoryDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ProductCategoryDaoMem() {
+    private CategoryDaoMem() {
     }
 
-    public static ProductCategoryDaoMem getInstance() {
+    public static CategoryDaoMem getInstance() {
         if (instance == null) {
-            instance = new ProductCategoryDaoMem();
+            instance = new CategoryDaoMem();
         }
         return instance;
     }
