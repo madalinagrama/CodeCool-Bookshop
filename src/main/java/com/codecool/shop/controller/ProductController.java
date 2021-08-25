@@ -51,8 +51,8 @@ public class ProductController extends HttpServlet {
                 context = new WebContext(req, resp, req.getServletContext());
 
                 productDataStore = ProductDaoMem.getInstance();
-                categoryDataStore = CategoryDaoJdbc.getInstance();
-                supplierDataStore = SupplierDaoJdbc.getInstance();
+                categoryDataStore = CategoryDaoMem.getInstance();
+                supplierDataStore = SupplierDaoMem.getInstance();
                 productService = new ProductService(productDataStore, categoryDataStore, supplierDataStore);
 
                 session = req.getSession();
@@ -63,8 +63,7 @@ public class ProductController extends HttpServlet {
 
             }
 
-        context.setVariable("categories", categoryDataStore.getAll());
-        context.setVariable("suppliers", supplierDataStore.getAll());
+
 //        } catch (SQLException throwable) {
 //            throwable.printStackTrace();
 //
@@ -107,6 +106,8 @@ public class ProductController extends HttpServlet {
             }
 
         }
+        context.setVariable("categories", categoryDataStore.getAll());
+        context.setVariable("suppliers", supplierDataStore.getAll());
         engine.process("product/index.html", context, resp.getWriter());
     }
 
