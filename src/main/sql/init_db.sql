@@ -25,26 +25,26 @@ CREATE TABLE product
     description      VARCHAR(255)        NOT NULL,
     default_price    DOUBLE PRECISION    NOT NULL,
     currency_string  VARCHAR(255)        NOT NULL,
-    supplier         INTEGER        NOT NULL,
-    product_category INTEGER        NOT NULL
+    supplier         INTEGER             NOT NULL,
+    product_category INTEGER             NOT NULL
 );
 
 CREATE TABLE cart
 (
-    id        SERIAL PRIMARY KEY NOT NULL,
+    id           SERIAL PRIMARY KEY NOT NULL,
     line_item_id INTEGER            NOT NULL
 );
 
 CREATE TABLE line_item
 (
     line_item_id SERIAL PRIMARY KEY NOT NULL,
-    order_id        INTEGER NOT NULL,
-    quantity  INTEGER NOT NULL,
-    item_id  INTEGER NOT NULL,
-    currency VARCHAR(255) NOT NULL,
-    unit_price DOUBLE PRECISION NOT NULL,
-    product DOUBLE PRECISION NOT NULL,
-    total VARCHAR(255) NOT NULL
+    order_id     INTEGER            NOT NULL,
+    quantity     INTEGER            NOT NULL,
+    item_id      INTEGER            NOT NULL,
+    currency     VARCHAR(255)       NOT NULL,
+    unit_price   DOUBLE PRECISION   NOT NULL,
+    product      DOUBLE PRECISION   NOT NULL,
+    total        VARCHAR(255)       NOT NULL
 );
 
 

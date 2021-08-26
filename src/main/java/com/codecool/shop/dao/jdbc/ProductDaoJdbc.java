@@ -60,7 +60,7 @@ public static ProductDao getInstance() throws SQLException {
             if (!rs.next()) {
                 return null;
             }
-            return new Product(rs.getString(1), rs.getFloat(2), rs.getString(3), rs.getString(4), rs.getObject(5, ProductCategory.class), rs.getObject(6, Supplier.class));
+            return new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(2), CategoryDaoJdbc.getInstance().find(rs.getInt(7)), SupplierDaoJdbc.getInstance().find(rs.getInt(6)));
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +101,7 @@ public static ProductDao getInstance() throws SQLException {
             String sql = "SELECT * FROM product WHERE supplier = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, supplier.getId());
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
             List<Product> products = new ArrayList<>();
             while (rs.next()) {
                 ProductCategory productCategory = categoryDaoJdbc.find(rs.getInt("product_category"));
@@ -121,16 +121,21 @@ public static ProductDao getInstance() throws SQLException {
         try (Connection conn = dataSource.getConnection()){
             SupplierDaoJdbc supplierDaoJdbc = new SupplierDaoJdbc();
             String sql = "SELECT * FROM product WHERE product_category = ?";
+//            String sql = "SELECT * FROM product";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, productCategory.getId());
-            ResultSet rs = ps.executeQuery(sql);
+//            System.out.println("-- productCategory.getId()" + productCategory.getId());
+            ResultSet rs = ps.executeQuery();
             List<Product> products = new ArrayList<>();
+
             while (rs.next()) {
                 Supplier supplier = supplierDaoJdbc.find(rs.getInt("supplier"));
                 Product temp = new Product(rs.getString("name"), rs.getFloat("default_price"), rs.getString("currency_string"), rs.getString("description"), productCategory, supplier);
                 int id = rs.getInt("id");
                 temp.setId(id);
                 products.add(temp);
+                System.out.println("temp.getName()"+ temp.getName());
+
             }
             return products;
         } catch (SQLException e) {

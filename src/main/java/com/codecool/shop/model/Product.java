@@ -11,7 +11,7 @@ public class Product extends BaseModel {
 
 public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
-        this.setPrice(defaultPrice, currencyString);
+        this.setPrice(defaultPrice);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
     }
@@ -36,9 +36,8 @@ public Product(String name, float defaultPrice, String currencyString, String de
         return this.defaultPrice + " " + this.defaultCurrency;
     }
 
-    public void setPrice(float price, String currency) {
+    public void setPrice(float price) {
         this.defaultPrice = price;
-        this.defaultCurrency = currency;
     }
 
     public ProductCategory getProductCategory() {
@@ -47,7 +46,7 @@ public Product(String name, float defaultPrice, String currencyString, String de
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
+//        this.productCategory.addProduct(this);
     }
 
     public Supplier getSupplier() {
@@ -56,7 +55,7 @@ public Product(String name, float defaultPrice, String currencyString, String de
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-        this.supplier.addProduct(this);
+//        this.supplier.addProduct(this);
     }
 
 //    @Override

@@ -93,21 +93,22 @@ public class ProductController extends HttpServlet {
 //        WebContext context = new WebContext(req, resp, req.getServletContext());
 
         String category = req.getParameter("category");
-        int categoryId = (category != null) ? Integer.parseInt(category) : 1;
+//        int categoryId = (category != null) ? Integer.parseInt(category) : 1;
         String supplier = req.getParameter("supplier");
-        int supplierId = (supplier != null) ? Integer.parseInt(supplier) : 0;
+//        int supplierId = (supplier != null) ? Integer.parseInt(supplier) : 0;
 
-        String checkAll = req.getParameter("all");
-        if (checkAll == null) {
+        if (category == null && supplier == null) {
             context.setVariable("products", productDataStore.getAll());
+
+
         } else if (category != null) {
-//                context.setVariable("category", productDataStore.getBy(categoryDataStore.find(categoryId)));
-//                context.setVariable("products", productDataStore.getBy(categoryDataStore.find(categoryId)));
-                context.setVariable("category", productService.getProductsForCategory(categoryId));
-                context.setVariable("products", productService.getProductsForCategory(categoryId));
+//            System.out.println("productService.getProductsForCategory(Integer.parseInt(category))" + productService.getProductsForCategory(Integer.parseInt(category)));
+                context.setVariable("category", categoryDataStore.find(Integer.parseInt(category)));
+                context.setVariable("products", productService.getProductsForCategory(Integer.parseInt(category)));
+//            context.setVariable("products", productService.getProductsForCategory(categoryId));
         } else {
-            context.setVariable("supplier", productService.getProductsForCategory(supplierId));
-            context.setVariable("products", productService.getProductsForSupplier(supplierId));
+            context.setVariable("supplier", supplierDataStore.find(Integer.parseInt(supplier)));
+            context.setVariable("products", productService.getProductsForSupplier(Integer.parseInt(supplier)));
         }
         engine.process("product/index.html", context, resp.getWriter());
     }
