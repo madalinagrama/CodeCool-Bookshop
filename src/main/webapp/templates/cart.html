@@ -178,11 +178,11 @@
                         <ul class="list-unstyled mb-4">
                             <li class="d-flex justify-content-between py-3 border-bottom"></strong><strong class="text-muted">Order
                                 Subtotal</strong><strong class="text-muted"
-                                                         th:text="${#numbers.formatInteger(session.cart.getTotal(),2)} + ' USD'"></strong></li>
+                                                         th:text="${#numbers.formatDecimal(session.cart.getTotal(), 0, 'COMMA', 2, 'POINT')} + ' USD'"></strong></li>
                             <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping
                                 and handling</strong><strong>10 USD</strong></li>
                             <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong class="text-muted"
-                                                                                                                                           th:text="${#numbers.formatInteger(session.cart.getTotal() + 10 ,2)} + ' USD'"></strong>
+                                                                                                                                           th:text="${#numbers.formatDecimal(session.cart.getTotal() + 10 , 0, 'COMMA', 2, 'POINT')} + ' USD'"></strong>
                                 <!--                                <h5 class="font-weight-bold"></h5>-->
                             </li>
                         </ul>

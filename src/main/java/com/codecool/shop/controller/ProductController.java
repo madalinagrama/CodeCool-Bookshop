@@ -8,6 +8,7 @@ import com.codecool.shop.dao.implementation.CategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.dao.jdbc.CategoryDaoJdbc;
+import com.codecool.shop.dao.jdbc.ProductDaoJdbc;
 import com.codecool.shop.dao.jdbc.SupplierDaoJdbc;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
@@ -30,11 +31,12 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+
     TemplateEngine engine;
     WebContext context;
     Cart cart;
     HttpSession session;
-    ProductDao productDataStore;
+    ProductDao productDataStore = null;
     CategoryDao categoryDataStore;
     SupplierDao supplierDataStore;
     ProductService productService;
@@ -47,21 +49,23 @@ public class ProductController extends HttpServlet {
 //            } else {
 //                productDataStore = new ProductDaoJdbc(dataSource);
 //            }
-                engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-                context = new WebContext(req, resp, req.getServletContext());
+        engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        context = new WebContext(req, resp, req.getServletContext());
 
-                productDataStore = ProductDaoMem.getInstance();
-                categoryDataStore = CategoryDaoMem.getInstance();
-                supplierDataStore = SupplierDaoMem.getInstance();
-                productService = new ProductService(productDataStore, categoryDataStore, supplierDataStore);
+        productDataStore = ProductDaoJdbc.getInstance();
+        categoryDataStore = CategoryDaoJdbc.getInstance();
+        supplierDataStore = SupplierDaoMem.getInstance();
+        productService = new ProductService(productDataStore, categoryDataStore, supplierDataStore);
 
-                session = req.getSession();
-                cart = (Cart) session.getAttribute("cart");
-                if (cart == null) {
-                    cart = new Cart();
-                    session.setAttribute("cart", cart);
+        session = req.getSession();
+        cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
 
-            }
+        }
+        context.setVariable("categories", categoryDataStore.getAll());
+        context.setVariable("suppliers", supplierDataStore.getAll());
 
 
 //        } catch (SQLException throwable) {
@@ -96,18 +100,15 @@ public class ProductController extends HttpServlet {
         String checkAll = req.getParameter("all");
         if (checkAll == null) {
             context.setVariable("products", productDataStore.getAll());
+        } else if (category != null) {
+//                context.setVariable("category", productDataStore.getBy(categoryDataStore.find(categoryId)));
+//                context.setVariable("products", productDataStore.getBy(categoryDataStore.find(categoryId)));
+                context.setVariable("category", productService.getProductsForCategory(categoryId));
+                context.setVariable("products", productService.getProductsForCategory(categoryId));
         } else {
-            if (category != null) {
-                context.setVariable("category", productService.getProductCategory(categoryId));
-                context.setVariable("products", productService.getProductCategory(categoryId));
-            } else {
-                context.setVariable("supplier", productService.getProductSupplier(supplierId));
-                context.setVariable("products", productService.getProductSupplier(supplierId));
-            }
-
+            context.setVariable("supplier", productService.getProductsForCategory(supplierId));
+            context.setVariable("products", productService.getProductsForSupplier(supplierId));
         }
-        context.setVariable("categories", categoryDataStore.getAll());
-        context.setVariable("suppliers", supplierDataStore.getAll());
         engine.process("product/index.html", context, resp.getWriter());
     }
 
