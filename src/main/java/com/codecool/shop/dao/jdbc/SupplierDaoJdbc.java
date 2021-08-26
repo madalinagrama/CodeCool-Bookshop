@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.jdbc;
 
+import com.codecool.shop.controller.DatabaseManager;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
@@ -14,10 +15,6 @@ import java.util.List;
 public class SupplierDaoJdbc implements SupplierDao {
     DataSource dataSource = new DatabaseManager().setup();
     private static SupplierDaoJdbc instance = null;
-
-    public SupplierDaoJdbc(DataSource dataSource) throws SQLException {
-        this.dataSource = dataSource;
-    }
 
     SupplierDaoJdbc() throws SQLException {
     }
@@ -67,7 +64,8 @@ public class SupplierDaoJdbc implements SupplierDao {
                 return null;
             }
             while (rs.next()) {
-                Supplier temp = new Supplier(rs.getString("name"), rs.getString("description"));
+                Supplier temp = new Supplier(rs.getString("name"),
+                        rs.getString("description"));
                 int id = rs.getInt("id");
                 temp.setId(id);
                 result.add(temp);

@@ -1,7 +1,7 @@
 package com.codecool.shop.dao.jdbc;
 
+import com.codecool.shop.controller.DatabaseManager;
 import com.codecool.shop.dao.CategoryDao;
-import com.codecool.shop.dao.implementation.CategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
@@ -12,10 +12,6 @@ import java.util.List;
 public class CategoryDaoJdbc implements CategoryDao {
     DataSource dataSource = new DatabaseManager().setup();
     private static CategoryDaoJdbc instance = null;
-
-    public CategoryDaoJdbc(DataSource dataSource) throws SQLException {
-        this.dataSource = dataSource;
-    }
 
     CategoryDaoJdbc() throws SQLException{
     }
@@ -56,7 +52,9 @@ public class CategoryDaoJdbc implements CategoryDao {
             if (!rs.next()) {
                 return null;
             }
-            var category = new ProductCategory(rs.getString("name"), rs.getString("description"), rs.getString("department"));
+            var category = new ProductCategory(rs.getString("name"),
+                    rs.getString("description"),
+                    rs.getString("department"));
             category.setId(id);
 
             return category;
@@ -87,7 +85,9 @@ public class CategoryDaoJdbc implements CategoryDao {
             List<ProductCategory> productCategories = new ArrayList<>();
 
             while(rs.next()) {
-                ProductCategory temp = new ProductCategory(rs.getString("name"), rs.getString("department"), rs.getString("description"));
+                ProductCategory temp = new ProductCategory(rs.getString("name"),
+                        rs.getString("department"),
+                        rs.getString("description"));
                 int id =  rs.getInt("id");
                 temp.setId(id);
                 productCategories.add(temp);

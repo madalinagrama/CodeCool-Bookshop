@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.jdbc;
 
+import com.codecool.shop.controller.DatabaseManager;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.Cart;

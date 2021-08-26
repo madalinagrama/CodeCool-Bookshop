@@ -12,7 +12,6 @@ import java.util.List;
 public class ProductService{
     private ProductDao productDao;
     private CategoryDao categoryDao;
-
     private SupplierDao supplierDao;
 
     public ProductService(ProductDao productDao, CategoryDao categoryDao, SupplierDao supplierDao) {

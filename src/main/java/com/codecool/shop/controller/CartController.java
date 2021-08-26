@@ -60,78 +60,10 @@ public class CartController extends HttpServlet {
 
         resp.setContentType("text/html");
 
-//        ProductDao productDataStore = ProductDaoMem.getInstance();
-//        CartDao cartDaoDataStore = CartDaoMem.getInstance();
-//        LineItemDao lineItemDaoDataStore = LineItemDaoMem.getInstance();
-//        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-//        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-//        Cart cart;
-
         setData(req, resp);
-
-
-//        if (cartDaoDataStore.find(1) !=null) {
-//            cart = cartDaoDataStore.find(1);
-//        }
-//        else {
-//            Cart newCart = new Cart(1);
-//            cart = newCart;
-//            cartDaoDataStore.add(newCart);
-//        }
-//
-//        String product = req.getParameter("productId");
-//        int productId = (product != null) ? Integer.parseInt(product) : 1;
-////        Cart cart = cartDaoDataStore.find(productId); //
-////        Cart cart = new Cart(1);
-//
-//
-//        if (lineItemDaoDataStore.find(productDataStore.find(productId).getId()) == null) {
-//
-//            lineItemDaoDataStore.add(new LineItem(productDataStore.find(productId).getId(), productDataStore.find(productId)));
-//
-//            lineItemDaoDataStore.find(productDataStore.find(productId).getId()).setOrderId(cart.getId());
-//            lineItemDaoDataStore.find(productDataStore.find(productId).getId()).setQuantity(1);
-//            cart.addToCart(lineItemDaoDataStore.find(productDataStore.find(productId).getId()));
-//            cart.increaseQuantity();
-//        } else {
-//            lineItemDaoDataStore.find(productDataStore.find(productId).getId()).setQuantity(lineItemDaoDataStore.find(productDataStore.find(productId).getId()).getQuantity() + 1);
-//            cart.increaseQuantity();
-//        }
-//
-//        cart.calculateTotal();
-//
-//        LineItem lineItem1  = new LineItem(lineItemDaoDataStore.getAll().size()+1, productDataStore.find(productId));
-//        lineItem1.setOrderId(cart.getId());
-//        lineItemDaoDataStore.add(lineItem1);
-//        cart.addToCart(lineItem1);
-//        cart.setQuantity(cart.getProducts().size());
-
-
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        String json = gson.toJson(cart.getProducts());
-
-//        String jsonString = new Gson().toJson(cart.getProducts());
-////        assertEquals(expectedResult, jsonString);
-//
-//        JSONObject obj = new JSONObject();
-//
-//        obj.put("id", cart.getId());
-//        obj.put("total", cart.getTotal());
-//        obj.put("products", jsonString);
-//        obj.put("quantity", cart.getQuantity());
-//
-//        try (PrintWriter writer = resp.getWriter()) {
-//            writer.append(obj.toString());
-//        }
-
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-
-//        context.setVariable("cart", cart);
-//        context.setVariable("lineItems", lineItemDaoDataStore.getAll());
-//        context.setVariable("categories", productCategoryDataStore.getAll());
-//        context.setVariable("suppliers", supplierDataStore.getAll());
 
         engine.process("cart.html", context, resp.getWriter());
 
@@ -164,11 +96,6 @@ public class CartController extends HttpServlet {
                 cart.removeProduct(product);
             }
         }
-
-//        session.setAttribute("cart", cart);
-
-//        System.out.println("session - " + session.toString());
-//        System.out.println("cart - " + cart.toString());
 
         doGet(req, resp);
     }

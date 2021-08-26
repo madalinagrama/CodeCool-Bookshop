@@ -14,6 +14,7 @@ public Product(String name, float defaultPrice, String currencyString, String de
         this.setPrice(defaultPrice);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.defaultCurrency = currencyString;
     }
 
     public float getDefaultPrice() {

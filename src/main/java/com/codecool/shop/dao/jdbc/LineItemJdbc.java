@@ -3,7 +3,6 @@ package com.codecool.shop.dao.jdbc;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Product;
-import org.json.simple.parser.ParseException;
 
 import javax.sql.DataSource;
 import java.sql.*;
