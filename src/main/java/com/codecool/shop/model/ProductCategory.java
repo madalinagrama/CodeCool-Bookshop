@@ -8,13 +8,13 @@ public class ProductCategory extends BaseModel {
     private int id;
     private String description;
     private transient String department;
-    private transient List<Product> products;
+//    private transient List<Product> products;
 
     public ProductCategory(String name, String department, String description) {
         super(name);
         this.department = department;
         this.description = description;
-        this.products = new ArrayList<>();
+//        this.products = new ArrayList<>();
     }
 
     public String getDepartment() {
@@ -40,17 +40,17 @@ public class ProductCategory extends BaseModel {
         this.department = department;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public List<Product> getProducts() {
-        return this.products;
-    }
-
-    public void addProduct(Product product) {
-        this.products.add(product);
-    }
+//    public void setProducts(ArrayList<Product> products) {
+//        this.products = products;
+//    }
+//
+//    public List<Product> getProducts() {
+//        return this.products;
+//    }
+//
+//    public void addProduct(Product product) {
+//        this.products.add(product);
+//    }
 
     @Override
     public String toString() {

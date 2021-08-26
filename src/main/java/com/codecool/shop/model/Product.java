@@ -1,18 +1,17 @@
 package com.codecool.shop.model;
 
-import java.util.Currency;
 
 public class Product extends BaseModel {
 
     private float defaultPrice;
-    private Currency defaultCurrency;
+    private String defaultCurrency;
     private ProductCategory productCategory;
-    private Supplier supplier;
+    private Supplier supplier ;
 
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
-        this.setPrice(defaultPrice, currencyString);
+        this.setPrice(defaultPrice);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
     }
@@ -25,21 +24,20 @@ public class Product extends BaseModel {
         this.defaultPrice = defaultPrice;
     }
 
-    public Currency getDefaultCurrency() {
+    public String getDefaultCurrency() {
         return defaultCurrency;
     }
 
-    public void setDefaultCurrency(Currency defaultCurrency) {
+    public void setDefaultCurrency(String defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
 
     public String getPrice() {
-        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+        return this.defaultPrice + " USD " ;
     }
 
-    public void setPrice(float price, String currency) {
+    public void setPrice(float price) {
         this.defaultPrice = price;
-        this.defaultCurrency = Currency.getInstance(currency);
     }
 
     public ProductCategory getProductCategory() {
@@ -48,7 +46,7 @@ public class Product extends BaseModel {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
+//        this.productCategory.addProduct(this);
     }
 
     public Supplier getSupplier() {
@@ -57,22 +55,22 @@ public class Product extends BaseModel {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-        this.supplier.addProduct(this);
+//        this.supplier.addProduct(this);
     }
 
-    @Override
-    public String toString() {
-        return String.format("id: %1$d, " +
-                        "name: %2$s, " +
-                        "defaultPrice: %3$f, " +
-                        "defaultCurrency: %4$s, " +
-                        "productCategory: %5$s, " +
-                        "supplier: %6$s",
-                this.id,
-                this.name,
-                this.defaultPrice,
-                this.defaultCurrency.toString(),
-                this.productCategory.getName(),
-                this.supplier.getName());
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("id: %1$d, " +
+//                        "name: %2$s, " +
+//                        "defaultPrice: %3$f, " +
+//                        "defaultCurrency: %4$s, " +
+//                        "productCategory: %5$s, " +
+//                        "supplier: %6$s",
+//                this.id,
+//                this.name,
+//                this.defaultPrice,
+//                this.defaultCurrency,
+//                this.productCategory.getName(),
+//                this.supplier.getName());
+//    }
 }

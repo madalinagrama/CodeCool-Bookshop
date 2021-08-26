@@ -4,24 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Supplier extends BaseModel {
-    private List<Product> products;
+    private int id;
+    private String description;
+//    private List<Product> products;
 
     public Supplier(String name, String description) {
         super(name);
-        this.products = new ArrayList<>();
+        this.description = description;
+//        this.products = new ArrayList<>();
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
+    @Override
+    public int getId() {
+        return id;
     }
 
-    public List<Product> getProducts() {
-        return this.products;
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void addProduct(Product product) {
-        this.products.add(product);
-    }
+//    public void setProducts(ArrayList<Product> products) {
+//        this.products = products;
+//    }
+//
+//    public List<Product> getProducts() {
+//        return this.products;
+//    }
+//
+//    public void addProduct(Product product) {
+//        this.products.add(product);
+//    }
 
     @Override
     public String toString() {
