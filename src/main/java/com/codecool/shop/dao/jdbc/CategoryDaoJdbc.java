@@ -56,7 +56,7 @@ public class CategoryDaoJdbc implements CategoryDao {
             if (!rs.next()) {
                 return null;
             }
-            var category = new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+            var category = new ProductCategory(rs.getString("name"), rs.getString("description"), rs.getString("department"));
             category.setId(id);
 
             return category;

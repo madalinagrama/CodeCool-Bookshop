@@ -33,7 +33,7 @@ public Product(String name, float defaultPrice, String currencyString, String de
     }
 
     public String getPrice() {
-        return this.defaultPrice + " " + this.defaultCurrency;
+        return this.defaultPrice + " USD " ;
     }
 
     public void setPrice(float price) {
