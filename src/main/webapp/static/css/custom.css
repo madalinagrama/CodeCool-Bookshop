@@ -92,3 +92,10 @@ body {
     font-weight: 300;
 }
 
+.nav-item{
+    text-decoration: none;
+    color: rgba(182, 24, 219, 0.84);
+    border-radius: 20px;
+
+}
+

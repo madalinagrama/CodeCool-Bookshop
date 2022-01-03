@@ -9,6 +9,7 @@ import com.codecool.shop.model.LineItem;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
+import java.util.Optional;
 
 public class CartJdbc implements CartDao {
 
@@ -66,5 +67,10 @@ public class CartJdbc implements CartDao {
     @Override
     public List<Cart> getAll() {
         return null;
+    }
+
+    @Override
+    public Optional<Cart> getBy(Integer userID) {
+        return Optional.empty();
     }
 }

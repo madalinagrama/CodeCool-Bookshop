@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS product_category;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS cart;
 DROP TABLE IF EXISTS line_item;
+DROP TABLE IF EXISTS users;
 
 
 CREATE TABLE supplier
@@ -48,6 +49,15 @@ CREATE TABLE line_item
     product      DOUBLE PRECISION   NOT NULL,
     total        VARCHAR(255)       NOT NULL
 );
+
+CREATE TABLE users
+(
+    id          SERIAL PRIMARY KEY  NOT NULL,
+    name        VARCHAR(255) UNIQUE NOT NULL,
+    password    varchar(255)        NOT NULL
+);
+
+
 
 
 -- ALTER TABLE product

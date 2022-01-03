@@ -6,6 +6,7 @@ import com.codecool.shop.model.LineItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CartDaoMem implements CartDao {
     private List<Cart> data = new ArrayList<>();
@@ -40,4 +41,11 @@ public class CartDaoMem implements CartDao {
     public List<Cart> getAll() {
         return data;
     }
+
+    @Override
+    public Optional<Cart> getBy(Integer userID) {
+        return data.stream().filter(cart -> cart.getUserId().equals(userID)).findFirst();
+    }
+
+//    Optional<Cart> getBy(Integer userID);
 }

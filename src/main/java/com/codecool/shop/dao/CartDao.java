@@ -4,6 +4,7 @@ import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.LineItem;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CartDao {
 
@@ -12,4 +13,7 @@ public interface CartDao {
     void remove(int id);
 
     List<Cart> getAll();
+
+    Optional<Cart> getBy(Integer userID);
 }
+

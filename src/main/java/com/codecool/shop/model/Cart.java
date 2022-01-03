@@ -6,10 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cart {
     private static final AtomicInteger count = new AtomicInteger(1);
-    int id;
+    private int id;
+    private Integer userId;
     private transient List<LineItem> products = new ArrayList<>();
-    float total;
-    int quantity;
+    private float total;
+    private int quantity;
+    private Payment paymentDetails;
 
     public Cart(int id) {
         this.id = id;
@@ -87,8 +89,20 @@ public class Cart {
         return 0;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setPaymentDetails(Payment paymentDetails) {
+        this.paymentDetails = paymentDetails;
     }
 
     public void increaseQuantity(){

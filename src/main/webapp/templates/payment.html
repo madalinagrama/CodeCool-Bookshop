@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>CoolCode | Checkout</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+
+
+    <!-- Favicon  -->
+    <link rel="icon" href="static/img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="static/css/core-style.css">
+    <link rel="stylesheet" href="static/static/css/style.css">
+
+</head>
+
+<body>
+
+<!-- ##### Main Content Wrapper Start ##### -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src='static/img/codecool_logo.png' height='40px'/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Products Category
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                        th:each="categ,iterStat : ${categories}">
+                        <li><a class="dropdown-item" th:each="categ,iterStat : ${categories}"
+                               th:href="|/?category=${categ.id}|" th:text="${categ.name}"></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Supplier Category
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1"
+                        th:each="suppl,iterStat : ${suppliers}">
+                        <li><a class="dropdown-item" th:each="suppl,iterStat : ${suppliers}"
+                               th:href="|/?supplier=${suppl.id}|" th:text="${suppl.name}"></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right ml-auto">
+                <li class="cart"><a class="nav-link" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                         class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <p class="itemCount" th:text="${session.cart} ? ${session.cart.getNumberOfProducts()} : '0'"></p></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-9">
+                    <div class="checkout_details_area mt-50 clearfix">
+
+                        <div class="cart-title">
+                            <h2>Checkout</h2>
+                        </div>
+
+                        <form th:action="@{/payment(user_id=${user_id})}" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" class="form-control" id="first_name" name="first_name" value="" placeholder="First Name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" class="form-control" id="last_name" name="last_name" value="" placeholder="Last Name" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <input type="text" class="form-control mb-3" id="street_address" name="street_address" placeholder="Address" value="">
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Town" value="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="number" class="form-control" id="phone_number" name="phone_number" min="0" placeholder="Phone No" value="">
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="custom-control custom-checkbox d-block">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck3" checked>
+                                        <label class="custom-control-label" for="customCheck3">Ship to the same address</label>
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-method">
+                                <form>
+                                    <input type="radio" name="payment-method" class="payment-custom-control-input" value="credit-card" id="credit-card" checked>
+                                    <label for="credit-card">Credit card <img class="ml-15" src="static/img/core-img/credit-card.png" alt=""></label><br>
+                                    <input type="radio" name="payment-method" class="payment-custom-control-input" value="paypal" id="paypal">
+                                    <label for="paypal">Paypal </label>
+                                    <div class="cart-btn mt-50">
+                                        <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block" id="checkout-button" value="Checkout">
+                                    </div>
+                                </form>
+                                <!-- Paypal -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <div class="cart-summary">
+                        <h5>Cart Total</h5>
+                        <ul class="summary-table">
+                            <li><span>subtotal:</span> <span >
+<!--                                    th:text="${#numbers.formatDecimal(session.cart.getTotal(), 0, 'COMMA', 2, 'POINT')} + ' USD'">-->
+                            140 USD</span></li>
+                            <li><span>delivery:</span> <span>10 USD</span></li>
+                            <li><span>total:</span> <span >
+<!--                                    th:text="${#numbers.formatDecimal(session.cart.getTotal() + 10 , 0, 'COMMA', 2, 'POINT')} + ' USD'">-->
+                                150 USD</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Main Content Wrapper End ##### -->
+
+
+<!-- ##### Footer Area Start ##### -->
+<div th:replace="footer.html :: copy"></div>
+
+
+
+
+</body>
+
+</html>
